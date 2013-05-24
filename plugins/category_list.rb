@@ -1,46 +1,49 @@
-# Tag Cloud for Octopress, modified by pf_miles, for use with utf-8 encoded blogs(all regexp added 'u' option).
-# modified by alswl, tag_cloud -> category_cloud
+# =======================
+# Category List for Octopress
 # =======================
 # 
-# Description:
+# Introduction
 # ------------
 # Easy output tag cloud and category list.
 # 
-# Syntax:
+# Usage
+# ------
+# Just simply put few files as following:
+# 
+#     .
+#     ├─ plugins/
+#     │  └── category_list.rb
+#     └─ source/
+#        └─ _includes/
+#           └─ custom/
+#              └─ asides/
+#                 ├─ category_list.html
+#                 └─ category_cloud.html
+# 
+# Then, you can modify your `_config.yml` file to add category list and/or category cloud tags in your blog's sidebar:
+# 
+#     default_asides: [..., custom/asides/category_list.html, custom/asides/category_cloud.html, ...]
+# 
+# Syntax
 # -------
-#     {% tag_cloud [counter:true] %}
+# If you need to write template files by yourself, these would be useful for you:
+# 
+#     {% category_cloud [counter:true] %}
 #     {% category_list [counter:true] %}
 # 
-# Example:
-# --------
-# In some template files, you can add the following markups.
+# If `counter` is set to `true`, category list/could tags will show posts count of the corresponding category.
 # 
-# ### source/_includes/custom/asides/tag_cloud.html ###
-# 
-#     <section>
-#       <h1>Tag Cloud</h1>
-#         <span id="tag-cloud">{% tag_cloud %}</span>
-#     </section>
-# 
-# ### source/_includes/custom/asides/category_list.html ###
-# 
-#     <section>
-#       <h1>Categories</h1>
-#         <ul id="category-list">{% category_list counter:true %}</ul>
-#     </section>
-# 
-# Notes:
+# Style
 # ------
-# Be sure to insert above template files into `default_asides` array in `_config.yml`.
-# And also you can define styles for 'tag-cloud' or 'category-list' in a `.scss` file.
-# (ex: `sass/custom/_styles.scss`)
+# You could write custom style for these two components in any available `.scss` file (`sass/custom/_styles.scss` is recommended).
 # 
-# Licence:
+# Licence
 # --------
 # Distributed under the [MIT License][MIT].
 # 
 # [MIT]: http://www.opensource.org/licenses/mit-license.php
-# 
+
+
 module Jekyll
 
   class CategoryCloud < Liquid::Tag
@@ -68,7 +71,7 @@ module Jekyll
 
       html = ''
       lists.each do | category, counter |
-        url = category_dir + category.gsub(/_|\P{Word}/u, '-').gsub(/-{2,}/u, '-').downcase
+        url = category_dir + category.to_url
         style = "font-size: #{100 + (60 * Float(counter)/max)}%"
         html << "<a href='#{url}' style='#{style}'>#{category}"
         if @opts['counter']
@@ -97,7 +100,7 @@ module Jekyll
       category_dir = config['root'] + config['category_dir'] + '/'
       categories = context.registers[:site].categories
       categories.keys.sort_by{ |str| str.downcase }.each do |category|
-        url = category_dir + category.gsub(/_|\P{Word}/u, '-').gsub(/-{2,}/u, '-').downcase
+        url = category_dir + category.to_url
         html << "<li><a href='#{url}'>#{category}"
         if @opts['counter']
           html << " (#{categories[category].count})"
