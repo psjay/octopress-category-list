@@ -3,7 +3,7 @@ Category List for Octopress
 
 Introduction
 ------------
-Easy output tag cloud and category list.
+Easy output category cloud and category list.
 
 Usage
 ------
@@ -19,7 +19,7 @@ Just simply put few files as following:
                 ├─ category_list.html
                 └─ category_cloud.html
 
-Then, you can modify your `_config.yml` file to add category list and/or category cloud tags in your blog's sidebar:
+Then, you can modify your `_config.yml` file to add category list and/or category cloud tags in your blog sidebar:
 
     default_asides: [..., custom/asides/category_list.html, custom/asides/category_cloud.html, ...]
 

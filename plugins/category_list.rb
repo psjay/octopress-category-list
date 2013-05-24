@@ -1,10 +1,13 @@
-# =======================
+# Tag Cloud for Octopress, modified by pf_miles, for use with utf-8 encoded blogs(all regexp added 'u' option).
+# modified by alswl, tag_cloud -> category_cloud
+# modified by psjay, fixed wrong category url bug.
+#
 # Category List for Octopress
 # =======================
 # 
 # Introduction
 # ------------
-# Easy output tag cloud and category list.
+# Easy output category cloud and category list.
 # 
 # Usage
 # ------
@@ -20,7 +23,7 @@
 #                 ├─ category_list.html
 #                 └─ category_cloud.html
 # 
-# Then, you can modify your `_config.yml` file to add category list and/or category cloud tags in your blog's sidebar:
+# Then, you can modify your `_config.yml` file to add category list and/or category cloud tags in your blog sidebar:
 # 
 #     default_asides: [..., custom/asides/category_list.html, custom/asides/category_cloud.html, ...]
 # 
